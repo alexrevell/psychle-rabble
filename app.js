@@ -20,11 +20,11 @@ function main(responses) {
   let requests = {
     DOM: responses.DOM.get("input", "change")
       .map(ev => ev.target.checked)
-      .startWith(false)
+      .startWith(true)
       .map(toggled =>
         h("div", [
-          h("input", {type: "checkbox"}), "toggle me! bro! sweet!",
-          h("p", toggled ? "ON" : "OFF")
+          h("input", {type: "checkbox"}), toggled ? "Chur! sweet!" : "toggle me! bro!",
+          h("p", toggled ? "ON" : "OFF, bro! turn me back on!")
         ])
       )
   }
