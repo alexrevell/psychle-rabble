@@ -9,6 +9,8 @@ function main(responses) {
 
   const USERS_URL = "http://jsonplaceholder.typicode.com/users/"
 
+  // let getRandomUser$ = responses.DOM.get
+
   let getRandomUser$ = click$.map(() => {
     let randomNum = Math.round(Math.Random()*9)+1
     return {
@@ -20,18 +22,22 @@ function main(responses) {
   let requests = {
     DOM: responses.DOM.get("input", "change")
       .map(ev => ev.target.checked)
-      .startWith(true)
+      .startWith(false)
       .map(toggled =>
-        h("div", [
+        h("div.sweet-toggledog", [
           h("input", {type: "checkbox"}), toggled ? "Chur! sweet!" : "toggle me! bro!",
-          h("p", toggled ? "ON" : "OFF, bro! turn me back on!")
+          h("p", toggled ? "ON" : "OFF, bro! turn me on!")
         ])
       )
   }
-  return requests
+  return {
+    DOM: requests.DOM,
+    HTTP: getRandomUser$
+  }
 }
 
 Cycle.run(main, {
-  DOM: makeDOMDriver("#app")
+  DOM: makeDOMDriver("#app"),
+  HTTP: makeHTTPDriver()
 })
 
