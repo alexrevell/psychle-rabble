@@ -26,7 +26,7 @@ function main(responses) {
       h("button.get-random", "Get random youzer"),
       user === null ? null : h("div.user-details", [
         h("h1.user-name", user.name),
-        h("h1.user-email", user.email),
+        h("h2.user-email", user.email),
         h("a.user-website", { href: user.website }, user.website)
       ])
     ])
@@ -38,7 +38,7 @@ function main(responses) {
       .startWith(false)
       .map(toggled =>
         h("div.sweet-toggledog", [
-          h("input", {type: "checkbox"}), toggled ? "Chur! sweet!" : "toggle me! bro!",
+          h("input", {type: "checkbox"}), toggled ? "Chur! sweet!" : "toggle me again bro!",
           h("p", toggled ? "ON" : "OFF, bro! turn me on!")
         ])
       )
