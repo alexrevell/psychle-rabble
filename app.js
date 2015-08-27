@@ -5,8 +5,6 @@ import { makeHTTPDriver } from "@cycle/http"
 
 function main(responses) {
 
-  let click$ = responses.DOM.get(".get-random", "click")
-
   const USERS_URL = "http://jsonplaceholder.typicode.com/users/"
 
   let getRandomUser$ = responses.DOM.get(".get-random", "click").map(() => {
