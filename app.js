@@ -10,7 +10,7 @@ function main(responses) {
   let getRandomUser$ = responses.DOM.get(".get-random", "click").map(() => {
     let randomNum = Math.round(Math.random()*9)+1
     return {
-      url: USERS_URL + String(randomNum),
+      url: USERS_URL + randomNum.toString(),
       method: "GET"
     }
   })
