@@ -32,6 +32,7 @@ function main(responses) {
     ])
   )
 
+  // DOM.get('input', 'change').map(ev => ev.target.value).filter(val => val.trim().length)
   let requests = {
     DOM: responses.DOM.get("input", "change")
       .map( ev => ev.target.checked )
