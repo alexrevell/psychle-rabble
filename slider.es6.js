@@ -16,9 +16,8 @@ function main({DOM}) {
       console.log(weight, height, bmi)
       return {weight, height, bmi}
     }
-  );
+  )
 
-          state$.map((state) => console.log("state", state))
   return {
     DOM: state$.map(({weight, height, bmi})  =>
       h('div', [
