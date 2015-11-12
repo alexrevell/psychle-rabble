@@ -4,35 +4,42 @@ import {h, makeDOMDriver} from '@cycle/dom'
 
 function main({DOM}) {
   let changeWeight$ = DOM.select('#weight').events('input')
-    .map(ev => ev.target.value);
+    .map(ev => ev.target.value)
   let changeHeight$ = DOM.select('#height').events('input')
-    .map(ev => ev.target.value);
-  let bmi$ = Rx.Observable.combineLatest(
+    .map(ev => ev.target.value)
+  let state$ = Rx.Observable.combineLatest(
     changeWeight$.startWith(70),
     changeHeight$.startWith(170),
     (weight, height) => {
-      let heightMeters = height * 0.01;
-      return Math.round(weight / (heightMeters * heightMeters));
+      let heightMeters = height * 0.01
+      let bmi = Math.round(weight / (heightMeters * heightMeters))
+      console.log(weight, height, bmi)
+      return {weight, height, bmi}
     }
   );
 
+          state$.map((state) => console.log("state", state))
   return {
-    DOM: bmi$.map(bmi =>
+    DOM: state$.map(({weight, height, bmi})  =>
       h('div', [
         h('div', [
-          'Weight ___kg',
-          h('input#weight', {type: 'range', min: 40, max: 140})
+          `Weight ${weight} kg`,
+          h('div', [
+            h('input#weight', {type: 'range', min: 40, max: 140})
+          ])
         ]),
         h('div', [
-          'Height ___cm',
-          h('input#height', {type: 'range', min: 140, max: 210})
+          `Height ${height} cm`,
+          h('div', [
+            h('input#height', {type: 'range', min: 140, max: 210})
+          ])
         ]),
-        h('h2', 'BMI is ' + bmi)
+        h('h2', `BMI is ${bmi}`)
       ])
     )
-  };
+  }
 }
 
 Cycle.run(main, {
-  DOM: makeDOMDriver('#app.1')
+  DOM: makeDOMDriver('#app-1')
 });
