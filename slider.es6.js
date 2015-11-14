@@ -3,15 +3,17 @@ import {h, makeDOMDriver} from '@cycle/dom';
 
 function renderWeightSlider(weight) {
   return h('div', [
-    'Weight ' + weight + 'kg',
-    h('input#weight', {type: 'range', min: 40, max: 140, value: weight})
+    'Weight ' + weight + 'kg', h('div', [
+      h('input#weight', {type: 'range', min: 40, max: 140, value: weight})
+    ])
   ]);
 }
 
 function renderHeightSlider(height) {
   return h('div', [
-    'Height ' + height + 'cm',
-    h('input#height', {type: 'range', min: 140, max: 210, value: height})
+    'Height ' + height + 'cm', h('div', [
+      h('input#height', {type: 'range', min: 140, max: 210, value: height})
+    ])
   ]);
 }
 
@@ -20,7 +22,6 @@ function calculateBMI(weight, height) {
   return Math.round(weight / (heightMeters * heightMeters));
 }
 
-// NEW!
 function model(changeWeight$, changeHeight$) {
   return Cycle.Rx.Observable.combineLatest(
     changeWeight$.startWith(70),
@@ -40,7 +41,6 @@ function view(state$) {
   );
 }
 
-// UPDATED!
 function main({DOM}) {
   let changeWeight$ = DOM.select('#weight').events('input')
     .map(ev => ev.target.value);
