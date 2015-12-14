@@ -1,23 +1,25 @@
+/** @jsx hJSX */
+
 import Cycle from '@cycle/core'
-import {h, makeDOMDriver} from '@cycle/dom'
+import {h, hJSX, makeDOMDriver} from '@cycle/dom'
 
-function renderWeightSlider(weight) {
-  return h('div', [
-    'Weight ' + weight + 'kg', h('div', [
-      h('input#weight', {type: 'range', min: 40, max: 140, value: weight})
-    ])
-  ])
-}
+let renderWeightSlider = (weight) =>
+  <div>
+    {`Weight: ${weight} kg` }
+    <div>
+      <input id='weight' type='range' min={40} max={140} value={weight} />
+    </div>
+  </div>
 
-function renderHeightSlider(height) {
-  return h('div', [
-    'Height ' + height + 'cm', h('div', [
-      h('input#height', {type: 'range', min: 140, max: 210, value: height})
-    ])
-  ]);
-}
+let renderHeightSlider = (height) =>
+  <div>
+    {`Height: ${height} cm`}
+    <div>
+      <input id='height' type='range' min={140} max={210} value={height} />
+    </div>
+  </div>
 
-function calculateBMI(weight, height) {
+let calculateBMI = (weight, height) => {
   let heightMeters = height * 0.01;
   return Math.round(weight / (heightMeters * heightMeters))
 }
@@ -33,11 +35,12 @@ function model({changeWeight$, changeHeight$}) {
 
 function view(state$) {
   return state$.map(({weight, height, bmi}) =>
-    h('div', [
-      renderWeightSlider(weight),
-      renderHeightSlider(height),
-      h('h2', 'BMI is ' + bmi)
-    ])
+    <div>
+      <h1>BMI measuring tool</h1>
+      { renderWeightSlider(weight) }
+      { renderHeightSlider(height) }
+      <h2>BMI is {bmi}</h2>
+    </div>
   )
 }
 

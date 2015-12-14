@@ -5,6 +5,7 @@
       "@cycle/core": "npm:@cycle/core@^3.1.0",
       "@cycle/dom": "npm:@cycle/dom@^5.0.1",
       "@cycle/http": "npm:@cycle/http@^3.1.0",
+      "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@^6.3.13",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "jquery": "github:components/jquery@^2.1.4",
       "lodash": "npm:lodash@^3.10.1",
@@ -16,5 +17,10 @@
       "babel-runtime": "npm:babel-runtime@^5.8.20",
       "core-js": "npm:core-js@^1.1.0"
     }
+  },
+  "babel" : {
+    "plugins" : [
+      ["transform-react-jsx", { "pragma": "DOM.hJSX" }]
+    ]
   }
 }
