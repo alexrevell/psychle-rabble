@@ -1,5 +1,6 @@
 /** @jsx hJSX */
 
+import Rx from 'rx'
 import Cycle from '@cycle/core'
 import {h, hJSX, makeDOMDriver} from '@cycle/dom'
 
@@ -25,11 +26,10 @@ let calculateBMI = (weight, height) => {
 }
 
 function model({changeWeight$, changeHeight$}) {
-  return Cycle.Rx.Observable.combineLatest(
+  return Rx.Observable.combineLatest(
     changeWeight$.startWith(70),
     changeHeight$.startWith(170),
-    (weight, height) =>
-      ({weight, height, bmi: calculateBMI(weight, height)})
+    (weight, height) => ({weight, height, bmi: calculateBMI(weight, height)})
   )
 }
 
